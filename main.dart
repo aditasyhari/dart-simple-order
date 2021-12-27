@@ -36,7 +36,7 @@ void menu(nama, alamat, notelp) {
     case 1:
       {
         var food = new Food(nama, alamat, notelp);
-        food.menuFood();
+        food.goFood();
       }
       break;
     case 2:
@@ -46,7 +46,10 @@ void menu(nama, alamat, notelp) {
       }
       break;
     case 3:
-      {}
+      {
+        var send = new Send(nama, alamat, notelp);
+        send.goSend();
+      }
       break;
     default:
       {

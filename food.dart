@@ -15,7 +15,7 @@ class Food {
     {'no': 3, 'nama_menu': 'Nasi Goreng', 'harga': 15000}
   ];
 
-  void menuFood() {
+  void goFood() {
     print("\nPilihan Menu Food :\n" + line);
     listMenu
         .map((val) => {
