@@ -1,13 +1,14 @@
 import 'dart:io';
+import 'menu.dart';
 
-class Food {
-  String nama;
-  String alamat;
-  String notelp;
+// Interface Segregation Principle
+class Food implements GoFood, Output {
+  String nama, alamat, notelp;
+  int _food;
 
   Food(this.nama, this.alamat, this.notelp);
 
-  var line = "=====================================";
+  String line = "=====================================";
 
   final List listMenu = [
     {'no': 1, 'nama_menu': 'Bakso Aci', 'harga': 10000},
@@ -28,17 +29,17 @@ class Food {
         .toList();
 
     print('Pilih Food :');
-    int foodDipilih = int.parse(stdin.readLineSync());
-    transaksi(foodDipilih);
+    _food = int.parse(stdin.readLineSync());
+    output();
   }
 
-  void transaksi(int food) {
+  void output() {
     print("\nDetail Transaksi\n" + line);
     print("Nama pembeli : " + this.nama);
     print("Alamat pembeli : " + this.alamat);
     print("No. Telp pembeli : " + this.notelp);
-    print("Nama makanan : " + listMenu[food - 1]['nama_menu']);
-    print("Harga makanan : Rp " + listMenu[food - 1]['harga'].toString());
+    print("Nama makanan : " + listMenu[this._food - 1]['nama_menu']);
+    print("Harga makanan : Rp " + listMenu[this._food - 1]['harga'].toString());
     print(line);
     print("Order Food Selesai.");
   }

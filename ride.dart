@@ -1,30 +1,35 @@
 import 'dart:io';
+import 'menu.dart';
 
-class Ride {
-  String nama;
-  String alamat;
-  String notelp;
+// Interface Segregation Principle
+class Ride implements GoRide, Output {
+  String nama, alamat, notelp;
+  String _lokasi_tujuan, _lokasi_asal;
 
   Ride(this.nama, this.alamat, this.notelp);
 
-  var line = "=====================================";
+  String line = "=====================================";
 
   void goRide() {
     print("\nPilihan Menu Ride :\n" + line);
 
     print("Lokasi anda saat ini : ");
-    String lokasi_asal = stdin.readLineSync();
+    _lokasi_asal = stdin.readLineSync();
     print("Lokasi tujuan anda : ");
-    String lokasi_tujuan = stdin.readLineSync();
+    _lokasi_tujuan = stdin.readLineSync();
 
+    output();
+  }
+
+  void output() {
     print("\nDetail Transaksi\n" + line);
+
     print("Nama pembeli : " + this.nama);
     print("Alamat pembeli : " + this.alamat);
     print("No. Telp pembeli : " + this.notelp);
-    print("Lokasi saat ini : " + lokasi_asal);
-    print("Lokasi tujuan : " + lokasi_tujuan);
+    print("Lokasi saat ini : " + this._lokasi_asal);
+    print("Lokasi tujuan : " + this._lokasi_tujuan);
 
-    print(line);
-    print("Order Ride Selesai.");
+    print(line + "\nOrder Ride Selesai.");
   }
 }

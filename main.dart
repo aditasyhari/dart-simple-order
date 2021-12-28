@@ -1,97 +1,90 @@
 import 'dart:io';
 import 'food.dart';
+import 'menu.dart';
 import 'ride.dart';
 import 'send.dart';
+import 'profile.dart';
 
-class Profile{
-  String _nama, _notelp;
-  var _alamat;
+var user = new Profile(); 
 
-  String getNama(){
-    return this._nama;
-  }
+// Single Responsibility Principle
+class App extends Menu {
+  String nama, notelp;
+  var alamat;
 
-  void setNama(String nama){
-    this._nama = nama;
-  }
+  App(this.nama, this.alamat, this.notelp);
 
-  String getAlamat(){
-    return this._alamat;
-  }
+  @override
+  void menu() {
+    // TODO: implement menu
+    final line = "=====================================";
+    var cetakPilihanMenu =
+        '\nPilih Menu Aplikasi \n$line\n1. Food \n2. Ride \n3. Send\n4. Edit Profile\n' +
+            line;
+    print(cetakPilihanMenu);
 
-  void setAlamat(String alamat){
-    this._alamat = alamat;
-  }
+    print("Enter Number :");
+    int menu = int.parse(stdin.readLineSync());
 
-  String getNoTelp(){
-    return this._notelp;
-  }
+    switch (menu) {
+      case 1:
+        {
+          var food = new Food(nama, alamat, notelp);
+          food.goFood();
+        }
+        break;
+      case 2:
+        {
+          var ride = new Ride(nama, alamat, notelp);
+          ride.goRide();
+        }
+        break;
+      case 3:
+        {
+          var send = new Send(nama, alamat, notelp);
+          send.goSend();
+        }
+        break;
+      case 4:
+        {
+          String line = "=====================================";
+          print("\nEdit Profile\n" + line);
 
-  void setNoTelp(String notelp){
-    this._notelp = notelp;
+          print("Masukkan Nama : ");
+          String nama = stdin.readLineSync();
+          user.setNama(nama);
+
+          print("Masukkan Alamat : ");
+          String alamat = stdin.readLineSync();
+          user.setAlamat(alamat);
+
+          print("Masukkan No. Telp : ");
+          String notelp = stdin.readLineSync();
+          user.setNoTelp(notelp);
+        }
+        break;
+      default:
+        {
+          print('Menu tidak ada!');
+        }
+        break;
+    }
   }
 }
 
 void main() {
   bool ulang = true;
 
-  var user = new Profile();
   user.setNama("Adit");
   user.setAlamat("Temuguruh, Sempu");
   user.setNoTelp("087869415384");
 
-  // print("Masukkan Nama : ");
-  // String nama = stdin.readLineSync();
-
-  // print("Masukkan Alamat : ");
-  // String alamat = stdin.readLineSync();
-
-  // print("Masukkan No. Telp : ");
-  // String notelp = stdin.readLineSync();
-
   do {
-    menu(user.getNama(), user.getAlamat(), user.getNoTelp());
+    var app = new App(user.getNama(), user.getAlamat(), user.getNoTelp());
+    app.menu();
     stdout.write("\nApakah anda mau keluar? (y/t): ");
     String jawaban = stdin.readLineSync();
 
     if (jawaban.toUpperCase() == "Y") ulang = false;
   } while (ulang);
-}
-
-void menu(nama, alamat, notelp) {
-  final line = "=====================================";
-  var cetakPilihanMenu = '\nPilih Menu Aplikasi \n$line\n1. Food \n2. Ride \n3. Send\n4. Edit Profile\n'+line;
-  print(cetakPilihanMenu);
-
-  print("Enter Number :");
-  int menu = int.parse(stdin.readLineSync());
-
-  switch (menu) {
-    case 1:
-      {
-        var food = new Food(nama, alamat, notelp);
-        food.goFood();
-      }
-      break;
-    case 2:
-      {
-        var ride = new Ride(nama, alamat, notelp);
-        ride.goRide();
-      }
-      break;
-    case 3:
-      {
-        var send = new Send(nama, alamat, notelp);
-        send.goSend();
-      }
-      break;
-    case 4:
-      {}
-      break;
-    default:
-      {
-        print('Menu tidak ada!');
-      }
-      break;
-  }
 }

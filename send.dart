@@ -1,43 +1,49 @@
 import 'dart:io';
+import 'menu.dart';
 
-class Send {
-  String nama;
-  String alamat;
-  String notelp;
+// Interface Segregation Principle
+class Send implements GoSend, Output {
+  String nama, alamat, notelp;
+  String _barang, _penerima, _notelp_penerima, _lokasi_asal, _lokasi_tujuan;
+  int _berat;
 
   Send(this.nama, this.alamat, this.notelp);
 
-  var line = "=====================================";
+  String line = "=====================================";
 
   void goSend() {
     print("\nPilihan Menu Send :\n" + line);
 
     print("Nama barang : ");
-    String barang = stdin.readLineSync();
-    print("Berat barang : ");
-    int berat = int.parse(stdin.readLineSync());
+    _barang = stdin.readLineSync();
+    print("Berat barang (kg) : ");
+    _berat = int.parse(stdin.readLineSync());
     print("Nama penerima : ");
-    String penerima = stdin.readLineSync();
+    _penerima = stdin.readLineSync();
     print("No. Telp penerima : ");
-    String notelp_penerima = stdin.readLineSync();
+    _notelp_penerima = stdin.readLineSync();
     print("Lokasi pengambilan : ");
-    String lokasi_asal = stdin.readLineSync();
+    _lokasi_asal = stdin.readLineSync();
     print("Lokasi tujuan : ");
-    String lokasi_tujuan = stdin.readLineSync();
+    _lokasi_tujuan = stdin.readLineSync();
 
+    output();
+  }
+
+  void output() {
     print("\nDetail Transaksi\n" + line);
 
     print("Nama pengirim : " + this.nama);
     print("No. Telp pengirim : " + this.notelp);
 
-    print("Nama barang : " + barang);
-    print("Berat barang (kg): " + berat.toString() + ' kg');
+    print("Nama barang : " + this._barang);
+    print("Berat barang (kg): " + this._berat.toString() + ' kg');
 
-    print("Nama penerima : " + penerima);
-    print("No. Telp penerima : " + notelp_penerima);
+    print("Nama penerima : " + this._penerima);
+    print("No. Telp penerima : " + this._notelp_penerima);
 
-    print("Lokasi pengambilan : " + lokasi_asal);
-    print("Lokasi tujuan : " + lokasi_tujuan);
+    print("Lokasi pengambilan : " + this._lokasi_asal);
+    print("Lokasi tujuan : " + this._lokasi_tujuan);
 
     print(line);
     print("Order Send Selesai.");
